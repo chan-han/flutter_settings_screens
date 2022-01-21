@@ -1,8 +1,9 @@
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'my_cupertino_switch.dart';
+import '../widgets/my_cupertino_switch.dart';
 
 import '../../flutter_settings_screens.dart';
-import '../utils/utils.dart';
 import '../utils/widget_utils.dart';
 import 'color_picker/material_color_picker.dart';
 
@@ -289,8 +290,8 @@ class SettingsContainer extends StatelessWidget {
     var child = allowScrollInternally ? getList(children) : getColumn(children);
     return Padding(
       padding: EdgeInsets.only(
-        top: 16.0,
-      ),
+          // top: 16.0,
+          ),
       child: Material(
         child: Container(
           padding: EdgeInsets.only(left: leftPadding),
@@ -803,6 +804,7 @@ class SwitchSettingsTile extends StatelessWidget {
     }
     var _children = getPaddedParentChildrenList(childrenIfEnabled);
     _children.insert(0, mainWidget);
+    _children.add(_SettingsTileDivider());
 
     return SettingsContainer(
       children: _children,

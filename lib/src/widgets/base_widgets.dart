@@ -564,10 +564,13 @@ class _SettingsSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Switch.adaptive(
+    return CupertinoSwitch(
       value: value,
+      activeColor: Colors.black,
+      trackColor: Color(0xffcccccc),
       onChanged: enabled ? onChanged : null,
-      activeColor: Theme.of(context).colorScheme.secondary,
+      activeThumbColor: Color(0xff32ffcc),
+      thumbColor: Colors.white,
     );
   }
 }
