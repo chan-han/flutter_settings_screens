@@ -127,6 +127,10 @@ class _SettingsTile extends StatefulWidget {
   /// flag to show the child below the main tile elements
   final bool showChildBelow;
 
+  /// The tile's internal padding.
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  final EdgeInsetsGeometry? contentPadding;
+
   _SettingsTile({
     required this.title,
     required this.child,
@@ -137,6 +141,7 @@ class _SettingsTile extends StatefulWidget {
     this.enabled = true,
     this.showChildBelow = false,
     this.leading,
+    this.contentPadding,
   });
 
   @override
@@ -168,6 +173,7 @@ class __SettingsTileState extends State<_SettingsTile> {
                     style:
                         widget.subtitleTextStyle ?? subtitleTextStyle(context),
                   ),
+            contentPadding: widget.contentPadding,
             enabled: widget.enabled,
             onTap: widget.onTap,
             trailing: Visibility(
@@ -762,14 +768,14 @@ class _SettingsColorPicker extends StatelessWidget {
       leading: leading,
       enabled: enabled,
       onTap: () => _showColorPicker(context, value),
+      titleTextStyle: titleTextStyle,
+      subtitleTextStyle: subtitleTextStyle,
       child: FloatingActionButton(
         heroTag: null,
         backgroundColor: ConversionUtils.colorFromString(value),
         elevation: 0,
         onPressed: enabled ? () => _showColorPicker(context, value) : null,
       ),
-      titleTextStyle: titleTextStyle,
-      subtitleTextStyle: subtitleTextStyle,
     );
   }
 

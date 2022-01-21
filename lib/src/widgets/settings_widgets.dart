@@ -54,6 +54,10 @@ class SimpleSettingsTile extends StatelessWidget {
 
   final VoidCallback? onTap;
 
+  /// The tile's internal padding.
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  final EdgeInsetsGeometry? contentPadding;
+
   SimpleSettingsTile({
     required this.title,
     this.subtitle,
@@ -63,6 +67,7 @@ class SimpleSettingsTile extends StatelessWidget {
     this.enabled = true,
     this.leading,
     this.onTap,
+    this.contentPadding,
   });
 
   @override
@@ -75,6 +80,7 @@ class SimpleSettingsTile extends StatelessWidget {
       subtitleTextStyle: subtitleTextStyle,
       enabled: enabled,
       onTap: () => _handleTap(context),
+      contentPadding: contentPadding,
       child: child != null ? getIcon(context) : Text(''),
     );
   }
@@ -714,6 +720,10 @@ class SwitchSettingsTile extends StatelessWidget {
   /// state, Any flutter widget can be added in this list
   final List<Widget>? childrenIfEnabled;
 
+  /// The tile's internal padding.
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  final EdgeInsetsGeometry? contentPadding;
+
   SwitchSettingsTile({
     required this.title,
     required this.settingKey,
@@ -727,6 +737,7 @@ class SwitchSettingsTile extends StatelessWidget {
     this.subtitle = '',
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.contentPadding,
   });
 
   @override
@@ -741,13 +752,14 @@ class SwitchSettingsTile extends StatelessWidget {
           subtitle: getSubtitle(value),
           onTap: () => _onSwitchChange(context, !value, onChanged),
           enabled: enabled,
+          titleTextStyle: titleTextStyle,
+          subtitleTextStyle: subtitleTextStyle,
+          contentPadding: contentPadding,
           child: _SettingsSwitch(
             value: value,
             onChanged: (value) => _onSwitchChange(context, value, onChanged),
             enabled: enabled,
           ),
-          titleTextStyle: titleTextStyle,
-          subtitleTextStyle: subtitleTextStyle,
         );
 
         var finalWidget = getFinalWidget(
@@ -878,6 +890,10 @@ class CheckboxSettingsTile extends StatelessWidget {
   /// state, Any flutter widget can be added in this list
   final List<Widget>? childrenIfEnabled;
 
+  /// The tile's internal padding.
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  final EdgeInsetsGeometry? contentPadding;
+
   CheckboxSettingsTile({
     required this.title,
     required this.settingKey,
@@ -891,6 +907,7 @@ class CheckboxSettingsTile extends StatelessWidget {
     this.subtitle = '',
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.contentPadding,
   });
 
   @override
@@ -905,13 +922,14 @@ class CheckboxSettingsTile extends StatelessWidget {
           enabled: enabled,
           subtitle: getSubtitle(value),
           onTap: () => _onCheckboxChange(!value, onChanged),
+          titleTextStyle: titleTextStyle,
+          subtitleTextStyle: subtitleTextStyle,
+          contentPadding: contentPadding,
           child: _SettingsCheckbox(
             value: value,
             onChanged: (value) => _onCheckboxChange(value, onChanged),
             enabled: enabled,
           ),
-          titleTextStyle: titleTextStyle,
-          subtitleTextStyle: subtitleTextStyle,
         );
 
         var finalWidget = getFinalWidget(
@@ -1034,6 +1052,10 @@ class RadioSettingsTile<T> extends StatefulWidget {
   /// A Widget that will be displayed in the front of the tile
   final Widget? leading;
 
+  /// The tile's internal padding.
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  final EdgeInsetsGeometry? contentPadding;
+
   RadioSettingsTile({
     required this.title,
     required this.settingKey,
@@ -1046,6 +1068,7 @@ class RadioSettingsTile<T> extends StatefulWidget {
     this.subtitle = '',
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.contentPadding,
   });
 
   @override
@@ -1105,6 +1128,7 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
         title: entry.value,
         onTap: () => _onRadioChange(entry.key, onChanged),
         enabled: widget.enabled,
+        contentPadding: widget.contentPadding,
         child: _SettingsRadio<T>(
           value: entry.key,
           onChanged: (newValue) => _onRadioChange(newValue, onChanged),
@@ -1233,6 +1257,8 @@ class _DropDownSettingsTileState<T> extends State<DropDownSettingsTile<T>> {
               subtitle: widget.subtitle,
               leading: widget.leading,
               enabled: widget.enabled,
+              titleTextStyle: widget.titleTextStyle,
+              subtitleTextStyle: widget.subtitleTextStyle,
               child: _SettingsDropDown<T>(
                 selected: value,
                 alignment: widget.alignment,
@@ -1244,8 +1270,6 @@ class _DropDownSettingsTileState<T> extends State<DropDownSettingsTile<T>> {
                   return Text(widget.values[value]!);
                 },
               ),
-              titleTextStyle: widget.titleTextStyle,
-              subtitleTextStyle: widget.subtitleTextStyle,
             )
           ],
         );
@@ -1700,6 +1724,8 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
               ? widget.subtitle
               : widget.values[value],
           leading: widget.leading,
+          titleTextStyle: widget.titleTextStyle,
+          subtitleTextStyle: widget.subtitleTextStyle,
           children: <Widget>[
             RadioSettingsTile<T>(
               title: '',
@@ -1711,8 +1737,6 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
               selected: value,
             ),
           ],
-          titleTextStyle: widget.titleTextStyle,
-          subtitleTextStyle: widget.subtitleTextStyle,
         );
       },
     );
@@ -1856,6 +1880,8 @@ class _SliderModalSettingsTileState extends State<SliderModalSettingsTile> {
                   ? widget.subtitle
                   : value.toString(),
               leading: widget.leading,
+              titleTextStyle: widget.titleTextStyle,
+              subtitleTextStyle: widget.subtitleTextStyle,
               children: <Widget>[
                 _SettingsSlider(
                   onChanged: (double newValue) =>
@@ -1872,8 +1898,6 @@ class _SliderModalSettingsTileState extends State<SliderModalSettingsTile> {
                   step: widget.step,
                 )
               ],
-              titleTextStyle: widget.titleTextStyle,
-              subtitleTextStyle: widget.subtitleTextStyle,
             ),
           ],
         );
