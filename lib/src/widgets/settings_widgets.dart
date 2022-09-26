@@ -313,11 +313,9 @@ class SettingsContainer extends StatelessWidget {
     var child = allowScrollInternally ? getList(children) : getColumn(children);
     return Padding(
       padding: childPadding,
-      child: Material(
-        child: Container(
-          padding: EdgeInsets.only(left: leftPadding),
-          child: child,
-        ),
+      child: Container(
+        padding: EdgeInsets.only(left: leftPadding),
+        child: child,
       ),
     );
   }
@@ -871,6 +869,7 @@ class SwitchSettingsTile extends StatelessWidget {
     if (childrenIfEnabled == null || !currentValue) {
       return SettingsContainer(
         children: [mainWidget],
+        childPadding: childPadding,
       );
     }
     var _children = getPaddedParentChildrenList(childrenIfEnabled);
@@ -878,7 +877,7 @@ class SwitchSettingsTile extends StatelessWidget {
 
     return SettingsContainer(
       children: _children,
-      childPadding: childPadding,
+      // childPadding: childPadding,
     );
   }
 }
